@@ -5,13 +5,44 @@ import BookingSection from '@/components/property/BookingSection';
 import ReviewSection from '@/components/property/ReviewSection';
 import { review } from '@/constants/index';
 import PropertyImage from '@/components/property/PropertyImages';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 
 export default function PropertyPage() {
+  // const router = useRouter();
+  // const { id } = router.query;
+  // const property = PROPERTYLISTINGSAMPLE.find((item) => item.id === id);
+
+  // if (!property) return <p>Property not found</p>;
+
   const router = useRouter();
   const { id } = router.query;
-  const property = PROPERTYLISTINGSAMPLE.find((item) => item.id === id);
+  const [property, setProperty] = useState(null);
+  const [loading, setLoading] = useState(true);
 
-  if (!property) return <p>Property not found</p>;
+  useEffect(() => {
+    const fetchProperty = async () => {
+      if (!id) return;
+      try {
+        const response = await axios.get(`/api/properties/${id}`);
+        setProperty(response.data);
+      } catch (error) {
+        console.error("Error fetching property details:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProperty();
+  }, [id]);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (!property) {
+    return <p>Property not found</p>;
+  }
 
   return (
     <>
@@ -24,6 +55,7 @@ export default function PropertyPage() {
         </div>
         <div className='flex w-[95%] mx-auto justify-between '>
           <PropertyDetail property={property} />
+
           <BookingSection price={property.price} />
         </div>
         <div className=' w-[95%] mx-auto '>
