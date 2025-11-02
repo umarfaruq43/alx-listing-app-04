@@ -3,6 +3,9 @@
 # dependencies
 node_modules/
 
+#next
+.next/
+
 # Expo
 .expo/
 dist/
