@@ -9,23 +9,9 @@ import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import PropertyCard from "@/components/property/PropertyCard";
 import axios from 'axios';
+import { PropertyProps } from '@/interfaces';
 
-const Card = dynamic(
-  () =>
-    new Promise<typeof import('@/components/common/Card')>((resolve) => {
-      setTimeout(() => resolve(import('@/components/common/Card')), 2000);
-    }),
-  {
-    loading: () => (
-      <div className='bg-white rounded-xl overflow-hidden shadow-sm p-4 animate-pulse'>
-        <div className='bg-gray-200 h-48 w-full rounded-xl mb-4' />
-        <div className='h-4 bg-gray-200 rounded w-3/4 mb-2' />
-        <div className='h-4 bg-gray-200 rounded w-1/2 mb-4' />
-        <div className='h-5 bg-gray-200 rounded w-1/4' />
-      </div>
-    ),
-  }
-);
+
 
 const HeroSection = dynamic(() => import('@/components/sections/HeroSection'), {
   loading: () => (
@@ -52,6 +38,8 @@ export default function Home() {
       try {
         const response = await axios.get("/api/properties");
         setProperties(response.data);
+
+
       } catch (error) {
         console.error("Error fetching properties:", error);
       } finally {
@@ -68,11 +56,12 @@ export default function Home() {
 
 
 
+
   return (
     <>
-      <head>
+      <h1>
         <title>Property Listings</title>
-      </head>
+      </h1>
       <main className=''>
         {/* Different Property Images */}
         <section
@@ -148,27 +137,11 @@ export default function Home() {
 
         {/* Card Section */}
         <section className='w-[95%] mx-auto py-4 bg-white text-sm'>
-          <div className="grid grid-cols-3 gap-4">
-            {properties.map((property) => (
-              <PropertyCard key={property.id} property={property} />
+          <div className="grid grid-cols-1  md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 pb-8">
+            {properties?.map((property: PropertyProps) => (
+              <PropertyCard key={property?.id} property={property} />
             ))}
           </div>
-
-          {/* <div className='grid grid-cols-1  md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 pb-8'>
-            {PROPERTYLISTINGSAMPLE.map((property) => (
-              <Link key={property.id} href={`/property/${property.id}`}>
-                <Card
-                  key={property.name}
-                  title={property.name}
-                  price={property.price}
-                  rating={property.rating}
-                  image={property.image}
-                  address={property.address}
-                />
-              </Link>
-            ))}
-          </div> */}
-
           <div className=' flex flex-col items-center justify-center bg-[#ffffff]  gap-4 h-[150px] '>
             <div className='bg-black px-6 py-2 rounded-full text-white'>
               <Button

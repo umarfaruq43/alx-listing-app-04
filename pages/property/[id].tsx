@@ -7,17 +7,20 @@ import { review } from '@/constants/index';
 import PropertyImage from '@/components/property/PropertyImages';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { PropertyProps } from '@/interfaces';
+
+
 
 export default function PropertyPage() {
   // const router = useRouter();
   // const { id } = router.query;
-  // const property = PROPERTYLISTINGSAMPLE.find((item) => item.id === id);
+  const [property, setProperty] = useState<PropertyProps | null>(null);
 
   // if (!property) return <p>Property not found</p>;
 
   const router = useRouter();
   const { id } = router.query;
-  const [property, setProperty] = useState(null);
+  // const [property, setProperty] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -56,7 +59,7 @@ export default function PropertyPage() {
         <div className='flex w-[95%] mx-auto justify-between '>
           <PropertyDetail property={property} />
 
-          <BookingSection price={property.price} />
+          <BookingSection price={property?.price} />
         </div>
         <div className=' w-[95%] mx-auto '>
           <ReviewSection reviews={review} />

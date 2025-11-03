@@ -20,7 +20,7 @@ const Card: React.FC<CardProps> = ({
           <div className='flex flex-col  items-start'>
             <h3 className='text-lg text-[#161117] font-semibold'>{title}</h3>
             <h6 className='text-md text-[#161117]'>
-              {address.city}, {address.country}
+              {address?.city}, {address?.country}
             </h6>
           </div>
 

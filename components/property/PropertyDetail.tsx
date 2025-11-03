@@ -28,8 +28,8 @@ const PropertyDetail: React.FC<{ property: PropertyProps }> = ({
     typeof window !== 'undefined' && window.innerWidth < 640;
   const visibleAmenities =
     isSmallScreen && !showAll
-      ? property.amenities.slice(0, 5)
-      : property.amenities;
+      ? property?.amenities.slice(0, 5)
+      : property?.amenities;
 
   const iconMap: Record<string, React.ReactNode> = {
     bathtub: <Bath className='w-6 h-6 text-gray-500' />,
@@ -60,8 +60,8 @@ const PropertyDetail: React.FC<{ property: PropertyProps }> = ({
           <div className='mt-4'>
             <p className='whitespace-pre-line'>
               {isExpaneded
-                ? property.description
-                : `${property.description.slice(0, MAX_LENGTH)}`}
+                ? property?.description
+                : `${property?.description.slice(0, MAX_LENGTH)}`}
             </p>
           </div>
 
@@ -102,7 +102,7 @@ const PropertyDetail: React.FC<{ property: PropertyProps }> = ({
           </ul>
 
           <div className='border border-black flex justify-center mt-8 h-12 rounded-md '>
-            {property.amenities.length > 5 && (
+            {property?.amenities.length > 5 && (
               <button onClick={() => setShowAll(!showAll)} className=''>
                 {showAll ? 'Show less amenities' : 'Show all amenities'}
               </button>

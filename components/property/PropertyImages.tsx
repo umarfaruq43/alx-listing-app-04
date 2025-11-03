@@ -6,10 +6,10 @@ const PropertyImage: React.FC<{ property: PropertyProps }> = ({ property }) => {
   const router = useRouter();
 
   const images = [
-    property.image,
-    property.image,
-    property.image,
-    property.image,
+    property?.image,
+    property?.image,
+    property?.image,
+    property?.image,
   ];
 
   // State management for Image in small screen
@@ -73,11 +73,11 @@ const PropertyImage: React.FC<{ property: PropertyProps }> = ({ property }) => {
         <div className='flex flex-col-reverse sm:flex-col'>
           {/* Property Name & Location  */}
           <div className='pl-4 sm:pl-0 mt-4 sm:mt-0'>
-            <h1 className='text-2xl sm:text-4xl font-bold'>{property.name}</h1>
+            <h1 className='text-2xl sm:text-4xl font-bold'>{property?.name}</h1>
             <div className='flex space-x-2'>
               <div className='flex items-center space-x-2  mt-2'>
                 <img src='/icons/Star 2.png' alt='Star' width={16} height={2} />
-                <span className='text-yellow-500'>{property.rating} stars</span>
+                <span className='text-yellow-500'>{property?.rating} stars</span>
               </div>
               <div className='flex items-start space-x-2 mt-2'>
                 <img
@@ -87,7 +87,7 @@ const PropertyImage: React.FC<{ property: PropertyProps }> = ({ property }) => {
                   height={20}
                 />
                 <span>
-                  {property.address.city}, {property.address.country}
+                  {property?.address.city}, {property?.address.country}
                 </span>
               </div>
             </div>
@@ -96,26 +96,26 @@ const PropertyImage: React.FC<{ property: PropertyProps }> = ({ property }) => {
           {/* Image Grid for Tabs/Desktop */}
           <div className='hidden sm:flex gap-2 mt-4 w-full'>
             <img
-              src={property.image}
-              alt={property.name}
+              src={property?.image}
+              alt={property?.name}
               className='col-span-2 w-[50%] h-96 object-cover rounded-tl-lg rounded-bl-lg'
             />
             <div className='flex flex-col gap-2'>
               <img
-                src={property.image}
-                alt={property.name}
+                src={property?.image}
+                alt={property?.name}
                 className='col-span-2 w-[99.5%] h-46 rounded-tr-lg'
               />
 
               <div className='flex gap-2 '>
                 <img
-                  src={property.image}
-                  alt={property.name}
+                  src={property?.image}
+                  alt={property?.name}
                   className='col-span-2 w-[49%] h-48 object-cover'
                 />
                 <img
-                  src={property.image}
-                  alt={property.name}
+                  src={property?.image}
+                  alt={property?.name}
                   className='col-span-2 w-[49%] h-48 object-cover rounded-br-lg'
                 />
               </div>
@@ -144,7 +144,7 @@ const PropertyImage: React.FC<{ property: PropertyProps }> = ({ property }) => {
                 <img
                   key={index}
                   src={img}
-                  alt={property.name}
+                  alt={property?.name}
                   className='w-full h-80 flex-shrink-0 object-cover snap-center'
                 />
               ))}
@@ -157,7 +157,7 @@ const PropertyImage: React.FC<{ property: PropertyProps }> = ({ property }) => {
         </div>
 
         <ul className='pl-4 sm:pl-0 flex flex-wrap space-x-4 mt-4'>
-          {property.category.map((amenity, index) => (
+          {property?.category.map((amenity, index) => (
             <li
               key={index}
               className='bg-[#E9E9E9] pl-4 pt-2 pb-2 pr-4 rounded-full text-xs sm:text-lg text-black'
@@ -176,17 +176,16 @@ const PropertyImage: React.FC<{ property: PropertyProps }> = ({ property }) => {
                 <button
                   key={id}
                   onClick={() => scrollToSection(id)}
-                  className={`text-sm font-medium ${
-                    active === id
-                      ? 'text-[#34967C] border-b-2 border-[#34967C] pb-1'
-                      : 'text-gray-500'
-                  }`}
+                  className={`text-sm font-medium ${active === id
+                    ? 'text-[#34967C] border-b-2 border-[#34967C] pb-1'
+                    : 'text-gray-500'
+                    }`}
                 >
                   {id === 'description'
                     ? 'Description'
                     : id === 'offers'
-                    ? 'What We Offer'
-                    : 'Reviews'}
+                      ? 'What We Offer'
+                      : 'Reviews'}
                 </button>
               ))}
             </div>
