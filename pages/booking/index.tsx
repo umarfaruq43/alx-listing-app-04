@@ -1,8 +1,10 @@
 import BookingForm from '@/components/booking/BookingForm';
 import OrderSummary from '@/components/booking/OrderSummary';
+import { PROPERTYLISTINGSAMPLE } from '@/constants';
 
 export default function BookingPage() {
   const bookingDetails = {
+    image: PROPERTYLISTINGSAMPLE?.[0]?.image,
     propertyName: 'Villa Arrecife Beach House',
     price: 7500,
     bookingFee: 65,

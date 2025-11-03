@@ -2,7 +2,6 @@ import axios from "axios";
 import { useState } from "react";
 
 const BookingForm = () => {
-
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -11,13 +10,25 @@ const BookingForm = () => {
     cardNumber: "",
     expirationDate: "",
     cvv: "",
-    billingAddress: "",
+    billingStreet: "",
+    billingCity: "",
+    billingState: "",
+    billingZip: "",
+    billingCountry: ""
   });
 
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
-  const handleSubmit = async (e: any) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
@@ -40,21 +51,45 @@ const BookingForm = () => {
         <div className='grid grid-cols-2 gap-4'>
           <div>
             <label>First Name</label>
-            <input type='text' className='border p-2 w-full mt-2' />
+            <input
+              name="firstName"
+              type='text'
+              value={formData.firstName}
+              onChange={handleChange}
+              className='border p-2 w-full mt-2'
+            />
           </div>
           <div>
             <label>Last Name</label>
-            <input type='text' className='border p-2 w-full mt-2' />
+            <input
+              name="lastName"
+              type='text'
+              value={formData.lastName}
+              onChange={handleChange}
+              className='border p-2 w-full mt-2'
+            />
           </div>
         </div>
         <div className='grid grid-cols-2 gap-4 mt-4'>
           <div>
             <label>Email</label>
-            <input type='email' className='border p-2 w-full mt-2' />
+            <input
+              name="email"
+              type='email'
+              value={formData.email}
+              onChange={handleChange}
+              className='border p-2 w-full mt-2'
+            />
           </div>
           <div>
             <label>Phone Number</label>
-            <input type='text' className='border p-2 w-full mt-2' />
+            <input
+              name="phoneNumber"
+              type='text'
+              value={formData.phoneNumber}
+              onChange={handleChange}
+              className='border p-2 w-full mt-2'
+            />
           </div>
         </div>
 
@@ -62,16 +97,34 @@ const BookingForm = () => {
         <h2 className='text-xl font-semibold mt-6'>Pay with</h2>
         <div className='mt-4'>
           <label>Card Number</label>
-          <input type='text' className='border p-2 w-full mt-2' />
+          <input
+            name="cardNumber"
+            type='text'
+            value={formData.cardNumber}
+            onChange={handleChange}
+            className='border p-2 w-full mt-2'
+          />
         </div>
         <div className='grid grid-cols-2 gap-4 mt-4'>
           <div>
             <label>Expiration Date</label>
-            <input type='text' className='border p-2 w-full mt-2' />
+            <input
+              name="expirationDate"
+              type='text'
+              value={formData.expirationDate}
+              onChange={handleChange}
+              className='border p-2 w-full mt-2'
+            />
           </div>
           <div>
             <label>CVV</label>
-            <input type='text' className='border p-2 w-full mt-2' />
+            <input
+              name="cvv"
+              type='text'
+              value={formData.cvv}
+              onChange={handleChange}
+              className='border p-2 w-full mt-2'
+            />
           </div>
         </div>
 
@@ -79,39 +132,71 @@ const BookingForm = () => {
         <h2 className='text-xl font-semibold mt-6'>Billing Address</h2>
         <div className='mt-4'>
           <label>Street Address</label>
-          <input type='text' className='border p-2 w-full mt-2' />
+          <input
+            name="billingStreet"
+            type='text'
+            value={formData.billingStreet}
+            onChange={handleChange}
+            className='border p-2 w-full mt-2'
+          />
         </div>
         <div className='grid grid-cols-2 gap-4 mt-4'>
           <div>
             <label>City</label>
-            <input type='text' className='border p-2 w-full mt-2' />
+            <input
+              name="billingCity"
+              type='text'
+              value={formData.billingCity}
+              onChange={handleChange}
+              className='border p-2 w-full mt-2'
+            />
           </div>
           <div>
             <label>State</label>
-            <input type='text' className='border p-2 w-full mt-2' />
+            <input
+              name="billingState"
+              type='text'
+              value={formData.billingState}
+              onChange={handleChange}
+              className='border p-2 w-full mt-2'
+            />
           </div>
         </div>
         <div className='grid grid-cols-2 gap-4 mt-4'>
           <div>
             <label>Zip Code</label>
-            <input type='text' className='border p-2 w-full mt-2' />
+            <input
+              name="billingZip"
+              type='text'
+              value={formData.billingZip}
+              onChange={handleChange}
+              className='border p-2 w-full mt-2'
+            />
           </div>
           <div>
             <label>Country</label>
-            <input type='text' className='border p-2 w-full mt-2' />
+            <input
+              name="billingCountry"
+              type='text'
+              value={formData.billingCountry}
+              onChange={handleChange}
+              className='border p-2 w-full mt-2'
+            />
           </div>
         </div>
 
         {/* Submit Button */}
-        <button type="submit" disabled={loading}>
+        <button
+          type="submit"
+          disabled={loading}
+          className="mt-6 bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+        >
           {loading ? "Processing..." : "Confirm & Pay"}
         </button>
         {error && <p className="text-red-500">{error}</p>}
       </form>
     </div>
-  )
+  );
 };
 
 export default BookingForm;
-
-

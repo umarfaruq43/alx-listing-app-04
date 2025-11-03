@@ -1,3 +1,5 @@
+import { PropertyProps } from "@/interfaces";
+
 const OrderSummary: React.FC<{ bookingDetails: any }> = ({
   bookingDetails,
 }) => (
@@ -5,7 +7,7 @@ const OrderSummary: React.FC<{ bookingDetails: any }> = ({
     <h2 className='text-xl font-semibold'>Review Order Details</h2>
     <div className='flex items-center mt-4'>
       <img
-        src='https://example.com/property.jpg'
+        src={bookingDetails?.image}
         alt='Property'
         className='w-32 h-32 object-cover rounded-md'
       />
