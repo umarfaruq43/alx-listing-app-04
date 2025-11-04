@@ -62,7 +62,7 @@ export default function PropertyPage() {
           <BookingSection price={property?.price} />
         </div>
         <div className=' w-[95%] mx-auto '>
-          <ReviewSection reviews={review} />
+          <ReviewSection propertyId={property?.id} />
         </div>
       </main>
     </>
